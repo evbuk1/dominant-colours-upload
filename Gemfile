@@ -8,7 +8,9 @@ gem "rails", "~> 7.0.4"
 
 gem 'pg'
 gem 'rspec'
+gem 'rspec-rails'
 gem 'rswag'
+gem 'jsonapi-serializer'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
