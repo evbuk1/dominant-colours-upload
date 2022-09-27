@@ -18,6 +18,7 @@ gem 'rubocop-rake', require: false
 gem 'rubocop-rspec', require: false
 gem 'factory_bot_rails', require: false
 gem 'elasticsearch'
+gem 'typhoeus'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
