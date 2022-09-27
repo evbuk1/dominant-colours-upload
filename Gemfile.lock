@@ -80,6 +80,7 @@ GEM
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
     digest (3.1.0)
+    dotenv (2.8.1)
     elastic-transport (8.1.0)
       faraday (< 3)
       multi_json
@@ -260,6 +261,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   debug
+  dotenv
   elasticsearch
   factory_bot
   factory_bot_rails
