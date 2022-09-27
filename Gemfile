@@ -6,19 +6,19 @@ ruby "3.1.2"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
 
-gem 'dotenv'
+gem 'dotenv-rails'
+gem 'elasticsearch'
+gem 'factory_bot'
+gem 'factory_bot_rails', require: false
+gem 'jsonapi-serializer'
 gem 'pg'
 gem 'rspec'
 gem 'rspec-rails'
 gem 'rswag'
-gem 'jsonapi-serializer'
-gem 'factory_bot'
 gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
 gem 'rubocop-rake', require: false
 gem 'rubocop-rspec', require: false
-gem 'factory_bot_rails', require: false
-gem 'elasticsearch'
 gem 'typhoeus'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
