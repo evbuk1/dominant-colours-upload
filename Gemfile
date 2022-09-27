@@ -11,6 +11,13 @@ gem 'rspec'
 gem 'rspec-rails'
 gem 'rswag'
 gem 'jsonapi-serializer'
+gem 'factory_bot'
+gem 'rubocop', require: false
+gem 'rubocop-rails', require: false
+gem 'rubocop-rake', require: false
+gem 'rubocop-rspec', require: false
+gem 'factory_bot_rails', require: false
+gem 'elasticsearch'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
