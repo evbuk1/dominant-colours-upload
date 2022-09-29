@@ -53,3 +53,6 @@ Started GET "/api-docs/v1/swagger.yaml" for 44.196.175.104 at 2022-09-27 11:34:3
   
 ActionController::RoutingError (No route matches [GET] "/api-docs/v1/swagger.yaml"):
   
+DEPRECATION WARNING: ActiveRecord::Base.timestamped_migrations is deprecated and will be removed in Rails 7.1.
+Use `ActiveRecord.timestamped_migrations` instead.
+ (called from <main> at bin/rails:4)
