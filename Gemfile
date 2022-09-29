@@ -12,6 +12,7 @@ gem 'factory_bot'
 gem 'factory_bot_rails', require: false
 gem 'jsonapi-serializer'
 gem 'kaminari'
+gem 'oauth2'
 gem 'pg'
 gem 'pundit'
 gem 'rspec'

@@ -305,6 +305,7 @@ DEPENDENCIES
   factory_bot_rails
   jsonapi-serializer
   kaminari
+  oauth2
   pg
   pundit
   rack-cors
