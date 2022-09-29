@@ -11,7 +11,9 @@ gem 'elasticsearch'
 gem 'factory_bot'
 gem 'factory_bot_rails', require: false
 gem 'jsonapi-serializer'
+gem 'kaminari'
 gem 'pg'
+gem 'pundit'
 gem 'rspec'
 gem 'rspec-rails'
 gem 'rswag'
@@ -19,6 +21,8 @@ gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
 gem 'rubocop-rake', require: false
 gem 'rubocop-rspec', require: false
+gem 'shopify-money', require: 'money'
+gem 'sorcery'
 gem 'typhoeus'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
