@@ -75,7 +75,7 @@ paths:
           description: listing users
 components:
   securitySchemes:
-    songkick_api_security_schema:
+    songkick_api:
       flows:
       - type: oauth2
         flow: password
