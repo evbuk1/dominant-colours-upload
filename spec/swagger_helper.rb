@@ -22,11 +22,13 @@ RSpec.configure do |config|
         version: 'v1'
       },
       paths: {},
-      securityDefinitions: {
-        oauth2: {
-          type: :oauth2,
-          flow: 'password',
-          tokenUrl: '/oauth/token'
+      components: {
+        securitySchemes: {
+          oauth2: {
+            type: :oauth2,
+            flow: 'password',
+            tokenUrl: '/oauth/token'
+          }
         }
       }
     }

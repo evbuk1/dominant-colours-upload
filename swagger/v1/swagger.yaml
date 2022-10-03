@@ -73,8 +73,10 @@ paths:
       responses:
         '200':
           description: listing users
-securityDefinitions:
-  oauth2:
-    type: oauth2
-    flow: password
-    tokenUrl: "/oauth/token"
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: "/oauth/token"
