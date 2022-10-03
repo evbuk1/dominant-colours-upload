@@ -31,5 +31,6 @@ module SongkickElastic
     end
     config.active_record.schema_format = :sql
     config.hosts << 'dev.evanbrown.co.uk'
+    config.hosts << 'www.example.com'
   end
 end

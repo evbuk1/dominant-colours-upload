@@ -6,12 +6,10 @@ module V1
       before_action :set_user, except: %i[index create]
 
       def index
-        users_index = make_index(Indexes::User, policy_scope(User.without_deactivated_records))
+        users_index = make_index(Indexes::User, User.all)
         render json: UserSerializer.new(
           users_index.filtered,
-          users_index.options.merge(
-            params: { visibility_helper: SerializerVisibilityHelper.new(current_user) }
-          )
+          users_index.options
         )
       end
 

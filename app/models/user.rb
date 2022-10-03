@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  include Filterable
+  include Sortable
+
   authenticates_with_sorcery!
 
   has_many :access_grants,
