@@ -2,8 +2,10 @@ Rails.application.routes.draw do
   use_doorkeeper
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  namespace :v1 do
+    scope module: :users do
+      resources :users
+    end
+  end
 end
