@@ -152,5 +152,3 @@ Doorkeeper.configure do
 
   hash_application_secrets using: '::Doorkeeper::SecretStoring::BCrypt'
 end
-
-Doorkeeper::OAuth::TokenResponse.send :prepend, CustomTokenResponse
