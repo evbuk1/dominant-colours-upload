@@ -25,11 +25,11 @@ RSpec.configure do |config|
       components: {
         securitySchemes: {
           songkick_api: {
-            flows: [{
-              type: :oauth2,
+            type: :oauth2,
+            flows: {
               flow: 'password',
               tokenUrl: '/oauth/token'
-                    }]
+            }
           }
         }
       }
