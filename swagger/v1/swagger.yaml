@@ -80,3 +80,4 @@ components:
       flows:
         password:
           tokenUrl: "/oauth/token"
+    scopes: {}

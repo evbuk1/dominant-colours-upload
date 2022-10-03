@@ -31,7 +31,8 @@ RSpec.configure do |config|
                 tokenUrl: '/oauth/token'
               }
             }
-          }
+          },
+          scopes: {}
         }
       }
     }
