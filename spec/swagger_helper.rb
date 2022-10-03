@@ -25,14 +25,14 @@ RSpec.configure do |config|
       components: {
         securitySchemes: {
           OAuth2: {
+            scopes: {},
             type: :oauth2,
             flows: {
               password: {
                 tokenUrl: '/oauth/token'
               }
             }
-          },
-          scopes: {}
+          }
         }
       }
     }
