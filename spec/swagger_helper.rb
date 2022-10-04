@@ -30,8 +30,8 @@ RSpec.configure do |config|
               password: {
                 tokenUrl: '/oauth/token',
                 scopes: {
-                  read: {},
-                  write: {}
+                  read: 'Read API endpoints',
+                  write: 'Write to API endpoints'
                 }
               }
             }
