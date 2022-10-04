@@ -301,7 +301,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   debug
-  doorkeeper
+  doorkeeper (~> 5.6)
   dotenv-rails
   elasticsearch
   factory_bot_rails

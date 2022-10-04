@@ -6,7 +6,7 @@ ruby '3.1.2'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4'
 
-gem 'doorkeeper'
+gem 'doorkeeper', '~> 5.6'
 gem 'dotenv-rails'
 gem 'elasticsearch'
 gem 'factory_bot_rails'

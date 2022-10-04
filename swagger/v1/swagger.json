@@ -1,0 +1,98 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Factris API",
+    "version": "v1"
+  },
+  "basePath": "/v1",
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "password",
+      "tokenUrl": "/oauth/token"
+    }
+  },
+  "paths": {
+    "/v1/users/users": {
+      "get": {
+        "summary": "Listing users",
+        "tags": [
+          "Users"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Comma-separated list of fields to sort by. Available fields: `first_name`, `last_name`, `email`, `updated_at`, `created_at`. Prefix a field by `-` to reverse the sort order. For example `foo,-bar` sorts by `foo` in ascending order then by `bar` in descending order."
+          },
+          {
+            "name": "filter[first_name][contains]",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Causes the response to include only records whose `first_name` attribute contains the given value as a substring (case-insensitive)."
+          },
+          {
+            "name": "filter[last_name][contains]",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Causes the response to include only records whose `last_name` attribute contains the given value as a substring (case-insensitive)."
+          },
+          {
+            "name": "filter[email][contains]",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Causes the response to include only records whose `email` attribute contains the given value as a substring (case-insensitive)."
+          },
+          {
+            "name": "filter[created_at][lt]",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Causes the response to include only records whose `created_at` attribute is strictly less than the given value."
+          },
+          {
+            "name": "filter[created_at][lte]",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Causes the response to include only records whose `created_at` attribute is less than or equal to the given value."
+          },
+          {
+            "name": "filter[created_at][gt]",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Causes the response to include only records whose `created_at` attribute is strictly greater than the given value."
+          },
+          {
+            "name": "filter[created_at][gte]",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Causes the response to include only records whose `created_at` attribute is greater than or equal to the given value."
+          }
+        ],
+        "security": [
+          {
+            "oauth2": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "listing users"
+          }
+        }
+      }
+    }
+  }
+}
