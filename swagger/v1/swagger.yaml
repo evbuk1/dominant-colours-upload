@@ -81,5 +81,5 @@ components:
         password:
           tokenUrl: "/oauth/token"
           scopes:
-          - read
-          - write
+            read: {}
+            write: {}
