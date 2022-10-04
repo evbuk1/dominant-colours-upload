@@ -28,8 +28,7 @@ RSpec.configure do |config|
             type: :oauth2,
             flows: {
               password: {
-                tokenUrl: '/oauth/token',
-                scopes: %w[public read write]
+                tokenUrl: '/oauth/token'
               }
             }
           }
