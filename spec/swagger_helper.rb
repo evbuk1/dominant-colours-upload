@@ -29,10 +29,7 @@ RSpec.configure do |config|
             flows: {
               password: {
                 tokenUrl: '/oauth/token',
-                scopes: {
-                  read: 'Read API endpoints',
-                  write: 'Write to API endpoints'
-                }
+                scopes: {}
               }
             }
           }
