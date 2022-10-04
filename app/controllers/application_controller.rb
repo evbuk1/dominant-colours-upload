@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
-  before_action :doorkeeper_authorize!
   attr_reader :current_user
 
   include Pundit
