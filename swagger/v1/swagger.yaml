@@ -80,4 +80,6 @@ components:
       flows:
         password:
           tokenUrl: "/oauth/token"
-          scopes: {}
+          scopes:
+          - read
+          - write
