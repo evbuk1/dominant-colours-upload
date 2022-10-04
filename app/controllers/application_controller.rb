@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  before_action :doorkeeper_authorize!
   attr_reader :current_user
 
   include Pundit
 
-  def doorkeeper_unauthorized_render_options(*)
-    { json: { errors: [{ title: 'Not authorised - please log in' }] } }
-  end
+  # def doorkeeper_unauthorized_render_options(*)
+  #  { json: { errors: [{ title: 'Not authorised - please log in' }] } }
+  # end
 
   private
 
