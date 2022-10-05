@@ -23,7 +23,7 @@ RSpec.configure do |config|
     'v1/swagger.json' => {
       swagger: '2.0',
       info: {
-        title: 'Factris API',
+        title: 'Songkick Demo API',
         version: 'v1'
       },
       basePath: '/v1',

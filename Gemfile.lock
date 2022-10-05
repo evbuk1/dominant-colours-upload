@@ -176,6 +176,8 @@ GEM
       ast (~> 2.4.1)
     pg (1.4.3)
     public_suffix (5.0.0)
+    puma (5.6.5)
+      nio4r (~> 2.0)
     pundit (2.2.0)
       activesupport (>= 3.0.0)
     racc (1.6.0)
@@ -309,6 +311,7 @@ DEPENDENCIES
   kaminari
   oauth2
   pg
+  puma
   pundit
   rack-cors
   rails (~> 7.0.4)

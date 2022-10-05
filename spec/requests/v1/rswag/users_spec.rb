@@ -12,7 +12,7 @@ RSpec.describe 'Users', type: :request do
   let(:json) { JSON(response.body, symbolize_names: true) }
   let(:data) { json[:data] }
 
-  path '/v1/users/users' do
+  path '/users/users' do
     get 'Listing users' do
       tags 'Users'
       produces 'application/json'
