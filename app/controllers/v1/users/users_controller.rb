@@ -21,62 +21,51 @@ module V1
       end
 
       def create
-        new_user = ::Users::New.call(user_params).user
-
-        authorize new_user
-
-        ::Users::Save.call(user_params, current_user, new_user)
+        new_user = User.new(user_params)
+        new_user.save!
 
         render json: UserSerializer.new(
-          new_user,
-          params: { visibility_helper: SerializerVisibilityHelper.new(current_user) }
+          new_user
         ), status: :created
       end
 
       def update
-        authorize @user
+        user = User.find(params[:id])
+        puts params
 
-        ::Users::Update.call(user_params, current_user, @user)
+        attributes = params.require(:data)
+                           .require(:attributes)
 
-        render json: UserSerializer.new(
-          @user,
-          params: { visibility_helper: SerializerVisibilityHelper.new(current_user) }
-        )
+        return head 400 unless attributes.key?(:first_name) ||
+          attributes.key?(:last_name) ||
+          attributes.key?(:email) ||
+          attributes.key?(:password)
+
+        raise Exceptions::UserNotAuthorizedToPerformThisAction if attempting_self_update(user)
+
+        user.update!(attributes.permit(:first_name, :last_name, :email, :password).to_h.compact)
+
+        render json: UserSerializer.new(user)
       end
 
-      def deactivate
-        authorize @user, :deactivate_user?
-
-        ::Users::Deactivate.call(@user)
-
-        render json: UserSerializer.new(
-          @user.reload,
-          params: { visibility_helper: SerializerVisibilityHelper.new(current_user) }
-        )
+      def destroy
+        user = User.find(params[:id])
+        user.destroy!
+        head 204
       end
 
-      def resend_activation_email
-        authorize @user, :resend_activation_email?
+      private
 
-        ::Users::ResendActivationEmail.call(@user)
-
-        head :ok
-      end
-
-      def send_reset_password_email
-        authorize @user, :send_reset_password_email?
-
-        ::Users::SendResetPasswordEmail.call(@user)
-
-        head :ok
+      def attempting_self_update(user)
+        user == current_user
       end
 
       def set_user
-        @user = ::Users::Show::WithDeactivation.call(params[:id]).user
+        @user = User.find(params[:id])
       end
 
       def user_params
-        params.permit(data: {}).to_h
+        params.require(:data).require(:attributes).permit(:first_name, :last_name, :email, :password)
       end
     end
   end

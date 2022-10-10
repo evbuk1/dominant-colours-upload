@@ -4,8 +4,6 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
 
   namespace :v1 do
-    namespace :users do
-      resources :users
-    end
+    resources :users, controller: 'users/users'
   end
 end
