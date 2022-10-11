@@ -31,7 +31,6 @@ module V1
 
       def update
         user = User.find(params[:id])
-        puts params
 
         attributes = params.require(:data)
                            .require(:attributes)

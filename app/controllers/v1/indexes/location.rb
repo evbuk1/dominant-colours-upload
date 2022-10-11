@@ -2,12 +2,11 @@
 
 module V1
   module Indexes
-    class User < Index
-      SORTABLE_FIELDS = %i[first_name last_name email updated_at created_at].freeze
+    class Location < Index
+      SORTABLE_FIELDS = %i[city state updated_at created_at].freeze
       FILTERABLE_FIELDS = [
-        first_name: [:contains],
-        last_name: [:contains],
-        email: [:contains],
+        city: [:contains],
+        state: [:contains],
         created_at: %i[lt lte gt gte],
         updated_at: %i[lt lte gt gte]
       ].freeze

@@ -296,6 +296,13 @@ CREATE INDEX index_events_on_venue_id ON public.events USING btree (venue_id);
 
 
 --
+-- Name: index_locations_on_city_and_state; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_locations_on_city_and_state ON public.locations USING btree (city, state);
+
+
+--
 -- Name: index_oauth_access_tokens_on_application_id; Type: INDEX; Schema: public; Owner: -
 --
 

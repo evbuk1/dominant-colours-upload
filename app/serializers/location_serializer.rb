@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-class UserSerializer
+class LocationSerializer
   include FastJsonapi::ObjectSerializer
 
-  attributes :email,
-             :first_name,
-             :last_name,
+  has_many :venues
+
+  attributes :city,
+             :state,
              :created_at,
              :updated_at
 
 end
+

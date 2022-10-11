@@ -7,5 +7,7 @@ class CreateLocation < ActiveRecord::Migration[7.0]
       t.string :state
       t.timestamps
     end
+
+    add_index :locations, %i[city state], unique: true
   end
 end
