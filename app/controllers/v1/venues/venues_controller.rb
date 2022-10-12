@@ -22,11 +22,9 @@ module V1
 
       def create
         new_venue = Venue.new
-        location = Location.find(location_id) if location_id.present?
-        attributes = params.require(:data)
-                           .require(:attributes)
-        new_venue.name = attributes[:name] if attributes.key?(:name)
-        new_venue.location = location if location.present?
+        location = Location.find(location_id)
+        new_venue.name = location_name
+        new_venue.location = location
 
         new_venue.save!
 
@@ -41,7 +39,7 @@ module V1
         attributes = params.require(:data)
                            .require(:attributes)
 
-        location = Location.find(location_id) if location_id.present?
+        location = Location.find(location_id)
 
         venue.name = attributes[:name] if attributes.key?(:name)
         venue.location = location if location.present?
@@ -59,8 +57,11 @@ module V1
       private
 
       def location_id
-        relations = params.require(:data).require(:relationships) if params[:data].key?(:relationships)
-        relations[:location][:data][:id] if relations.present?
+        params.require(:data).require(:relationships).require(:location).require(:data).require(:id)
+      end
+
+      def location_name
+        params.require(:data).require(:attributes).require(:name)
       end
     end
   end

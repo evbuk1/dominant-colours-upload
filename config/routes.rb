@@ -7,5 +7,7 @@ Rails.application.routes.draw do
     resources :users, controller: 'users/users'
     resources :locations, controller: 'locations/locations'
     resources :venues, controller: 'venues/venues'
+    resources :orchestras, controller: 'orchestras/orchestras'
+    resources :events, controller: 'events/events'
   end
 end

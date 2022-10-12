@@ -6,8 +6,8 @@ class EventSerializer
   belongs_to :venue
   belongs_to :orchestra
 
-  attributes :time,
-             :type,
+  attributes :event_time,
+             :event_type,
              :created_at,
              :updated_at
 

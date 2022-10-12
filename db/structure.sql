@@ -45,8 +45,8 @@ CREATE TABLE public.ar_internal_metadata (
 
 CREATE TABLE public.events (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    "time" time without time zone,
-    type character varying,
+    event_time timestamp(6) without time zone,
+    event_type character varying,
     venue_id uuid,
     orchestra_id uuid,
     created_at timestamp(6) without time zone NOT NULL,
