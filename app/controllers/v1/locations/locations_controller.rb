@@ -52,7 +52,7 @@ module V1
       private
 
       def location_params
-        params.require(:data).require(:attributes).require(:city, :state)
+        params.require(:data).require(:attributes).permit(:city, :state)
       end
     end
   end

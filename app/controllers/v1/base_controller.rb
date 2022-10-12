@@ -10,7 +10,7 @@ module V1
     private
 
     def set_host_for_local_storage
-      ActiveStorage::Current.host = request.base_url
+      ActiveStorage::Current.url_options = request.base_url
     end
   end
 end
