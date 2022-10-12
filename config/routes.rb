@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   namespace :v1 do
     resources :users, controller: 'users/users'
     resources :locations, controller: 'locations/locations'
+    resources :venues, controller: 'venues/venues'
   end
 end
