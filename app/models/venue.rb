@@ -6,4 +6,5 @@ class Venue < ApplicationRecord
 
   belongs_to :location
   has_many :events
+  has_one :address
 end

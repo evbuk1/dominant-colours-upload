@@ -50,7 +50,7 @@ RSpec.describe 'Events', type: :request do
                   }
                 }
               },
-              orchestra: {
+              artist: {
                 type: :object,
                 properties: {
                   data: {
@@ -69,7 +69,7 @@ RSpec.describe 'Events', type: :request do
 
       response '201', 'Event created' do
         context 'normal run' do
-          let!(:orchestra1) { create(:orchestra) }
+          let!(:artist1) { create(:artist) }
           let!(:venue1) { create(:venue) }
 
           context 'when adding a valid event' do
@@ -156,7 +156,7 @@ RSpec.describe 'Events', type: :request do
                   }
                 }
               },
-              orchestra: {
+              artist: {
                 type: :object,
                 properties: {
                   data: {
@@ -176,7 +176,7 @@ RSpec.describe 'Events', type: :request do
       let!(:event_to_update) { create(:event) }
       let!(:new_time) { Time.new(2020, 1, 1) }
       let!(:new_venue) { create(:venue) }
-      let!(:new_orchestra) { create(:orchestra) }
+      let!(:new_artist) { create(:artist) }
 
       let(:id) { event_to_update.id }
 
@@ -193,9 +193,9 @@ RSpec.describe 'Events', type: :request do
                   id: new_venue.id
                 }
               },
-              orchestra: {
+              artist: {
                 data: {
-                  id: new_orchestra.id
+                  id: new_artist.id
                 }
               }
             }
@@ -203,13 +203,13 @@ RSpec.describe 'Events', type: :request do
         }
       end
 
-      response '200', 'Venue updated' do
+      response '200', 'Event updated' do
         run_test! do
           expect(event_to_update.reload).to have_attributes(
             event_type: eq('new-type'),
             event_time: eq(new_time))
           expect(event_to_update.venue).to eq(new_venue)
-          expect(event_to_update.orchestra).to eq(new_orchestra)
+          expect(event_to_update.artist).to eq(new_artist)
         end
       end
     end
@@ -234,7 +234,7 @@ RSpec.describe 'Events', type: :request do
     end
   end
 
-  def valid_payload(name: 'The Big Venue')
+  def valid_payload
     {
       data: {
         attributes: {
@@ -247,9 +247,9 @@ RSpec.describe 'Events', type: :request do
               id: venue1.id
             }
           },
-          orchestra: {
+          artist: {
             data: {
-              id: orchestra1.id
+              id: artist1.id
             }
           }
         }

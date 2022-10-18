@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-class Event < ApplicationRecord
+class Address < ApplicationRecord
   include Filterable
   include Sortable
 
   belongs_to :venue
-  belongs_to :artist
 end
-
 

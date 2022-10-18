@@ -29,8 +29,8 @@ RSpec.describe 'Locations', type: :request do
                 type: :object,
                 required: %i[city state],
                 properties: {
-                  city: { type: :string },
-                  state: { type: :string }
+                  ward: { type: :string },
+                  borough: { type: :string }
                 }
               }
             }
@@ -107,8 +107,8 @@ RSpec.describe 'Locations', type: :request do
               attributes: {
                 type: :object,
                 properties: {
-                  city: { type: :string },
-                  state: { type: :string }
+                  ward: { type: :string },
+                  borough: { type: :string }
                 }
               }
             }
@@ -124,18 +124,18 @@ RSpec.describe 'Locations', type: :request do
         {
           data: {
             attributes: {
-              city: 'new-city',
-              state: 'new-state'
+              ward: 'new-ward',
+              borough: 'new-borough'
             }
           }
         }
       end
 
-      response '200', 'User updated' do
+      response '200', 'Location updated' do
         run_test! do
           expect(location_to_update.reload).to have_attributes(
-            city: eq('new-city'),
-            state: eq('new-state'))
+            ward: eq('new-ward'),
+            borough: eq('new-borough'))
         end
       end
     end
@@ -160,12 +160,12 @@ RSpec.describe 'Locations', type: :request do
     end
   end
 
-  def valid_attributes(city: 'San Fransisco', state: 'California')
+  def valid_attributes(ward: 'An Ward', borough: 'An Borough')
     {
       data: {
         attributes: {
-          city: city,
-          state: state
+          ward: ward,
+          borough: borough
         }
       }
     }

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-class EventSerializer
+class AddressSerializer
   include FastJsonapi::ObjectSerializer
 
   belongs_to :venue
-  belongs_to :artist
 
-  attributes :event_time,
-             :event_type,
+  attributes :address1,
+             :address2,
+             :address3,
              :created_at,
              :updated_at
 

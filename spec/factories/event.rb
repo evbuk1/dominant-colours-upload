@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :event, class: 'Event' do
     association :venue
-    association :orchestra
+    association :artist
     event_time { Time.now }
     event_type { 'Regular season' }
   end

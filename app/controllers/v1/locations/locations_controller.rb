@@ -35,10 +35,10 @@ module V1
         attributes = params.require(:data)
                            .require(:attributes)
 
-        return head 400 unless attributes.key?(:city) ||
-                               attributes.key?(:state)
+        return head 400 unless attributes.key?(:borough) ||
+                               attributes.key?(:ward)
 
-        location.update!(attributes.permit(:city, :state).to_h.compact)
+        location.update!(attributes.permit(:borough, :ward).to_h.compact)
 
         render json: LocationSerializer.new(location)
       end

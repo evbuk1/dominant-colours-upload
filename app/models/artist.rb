@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Orchestra < ApplicationRecord
+class Artist < ApplicationRecord
   include Filterable
   include Sortable
 

@@ -5,4 +5,5 @@ class Location < ApplicationRecord
   include Sortable
 
   has_many :venues
+  has_many :addresses
 end

@@ -2,7 +2,7 @@
 
 require 'swagger_helper'
 
-RSpec.describe 'Locations', type: :request do
+RSpec.describe 'Artists', type: :request do
   RSpec::Matchers.define_negated_matcher :excluding, :include
   let!(:user) { create(:user) }
 
@@ -14,9 +14,9 @@ RSpec.describe 'Locations', type: :request do
 
   define_negated_matcher :not_eq, :eq
 
-  path '/orchestras' do
-    post 'Add an orchestra' do
-      tags 'Orchestras'
+  path '/artists' do
+    post 'Add an artist' do
+      tags 'Artists'
       produces 'application/json'
       consumes 'application/json'
       parameter name: :payload, in: :body, required: true, schema: {
@@ -29,7 +29,11 @@ RSpec.describe 'Locations', type: :request do
                 type: :object,
                 required: %i[name],
                 properties: {
-                  name: { type: :string }
+                  name: { type: :string },
+                  twitter: { type: :string },
+                  facebook: { type: :string },
+                  website: { type: :string },
+                  genre: { type: :string }
                 }
               }
             }
@@ -38,9 +42,9 @@ RSpec.describe 'Locations', type: :request do
       }
       security [oauth2: []]
 
-      response '201', 'Orchestra created' do
+      response '201', 'Artist created' do
         context 'normal run' do
-          let!(:orchestra) { create(:orchestra) }
+          let!(:artist) { create(:artist) }
 
           context 'when adding a valid orchestra' do
             let(:payload) { valid_attributes }
@@ -51,22 +55,22 @@ RSpec.describe 'Locations', type: :request do
       end
     end
 
-    get 'Listing orchestras' do
-      tags 'Orchestras'
+    get 'Listing artists' do
+      tags 'Artists'
       produces 'application/json'
-      document_index_parameters ::V1::Indexes::Orchestra
+      document_index_parameters ::V1::Indexes::Artist
       security [oauth2: []]
 
-      response '200', 'listing orchestras' do
+      response '200', 'listing artists' do
         context 'normal operation' do
-          let!(:orchestra1) { create(:orchestra) }
-          let!(:orchestra2) { create(:orchestra) }
+          let!(:artist1) { create(:artist) }
+          let!(:artist2) { create(:artist) }
 
-          context 'orchestras are listed' do
+          context 'artists are listed' do
             run_test! do
               expect(data).to contain_exactly(
-                a_hash_including(id: orchestra1.id),
-                                a_hash_including(id: orchestra2.id)
+                a_hash_including(id: artist1.id),
+                                a_hash_including(id: artist2.id)
                               )
             end
           end
@@ -75,25 +79,25 @@ RSpec.describe 'Locations', type: :request do
     end
   end
 
-  path '/orchestras/{id}' do
-    get 'Show orchestra' do
-      tags 'Orchestras'
+  path '/artists/{id}' do
+    get 'Show artist' do
+      tags 'Artists'
       produces 'application/json'
       parameter name: :id, in: :path, type: :string, format: :uuid
       security [oauth2: []]
 
-      let!(:orchestra) { create(:orchestra) }
-      let(:id) { orchestra.id }
+      let!(:artist) { create(:artist) }
+      let(:id) { artist.id }
 
-      response '200', 'show orchestra' do
+      response '200', 'show artist' do
         run_test! do
-          expect(data[:id]).to eq(orchestra.id)
+          expect(data[:id]).to eq(artist.id)
         end
       end
     end
 
-    patch 'Update orchestra' do
-      tags 'Orchestras'
+    patch 'Update artist' do
+      tags 'Artists'
       produces 'application/json'
       consumes 'application/json'
       parameter name: :id, in: :path, type: :string, format: :uuid
@@ -106,7 +110,11 @@ RSpec.describe 'Locations', type: :request do
               attributes: {
                 type: :object,
                 properties: {
-                  name: { type: :string }
+                  name: { type: :string },
+                  twitter: { type: :string },
+                  facebook: { type: :string },
+                  website: { type: :string },
+                  genre: { type: :string }
                 }
               }
             }
@@ -115,52 +123,56 @@ RSpec.describe 'Locations', type: :request do
       }
       security [oauth2: []]
 
-      let!(:orchestra_to_update) { create(:orchestra) }
-      let(:id) { orchestra_to_update.id }
+      let!(:artist_to_update) { create(:artist) }
+      let(:id) { artist_to_update.id }
 
       let!(:payload) do
         {
           data: {
             attributes: {
-              name: 'new-orchestra-name'
+              name: 'new-artist-name'
             }
           }
         }
       end
 
-      response '200', 'User updated' do
+      response '200', 'Artist updated' do
         run_test! do
-          expect(orchestra_to_update.reload).to have_attributes(
-            name: eq('new-orchestra-name'))
+          expect(artist_to_update.reload).to have_attributes(
+            name: eq('new-artist-name'))
         end
       end
     end
 
-    delete 'Remove orchestra' do
-      tags 'Orchestras'
+    delete 'Remove artist' do
+      tags 'Artists'
       produces 'application/json'
       parameter name: :id, in: :path, type: :string, format: :uuid
       security [oauth2: []]
 
-      let(:id) { orchestra1.id }
+      let(:id) { artist1.id }
 
-      response '204', 'Orchestra deleted' do
-        let!(:orchestra1) { create(:orchestra) }
-        let!(:orchestra2) { create(:orchestra) }
+      response '204', 'Artist deleted' do
+        let!(:artist1) { create(:artist) }
+        let!(:artist2) { create(:artist) }
 
         run_test! do
-          expect(Orchestra.exists?(orchestra1.id)).to be false
-          expect(orchestra2.reload).to_not be_nil
+          expect(Artist.exists?(artist1.id)).to be false
+          expect(artist2.reload).to_not be_nil
         end
       end
     end
   end
 
-  def valid_attributes(name: 'The Big Orchestra')
+  def valid_attributes(name: 'The Big Artist', facebook: 'artist-facebook', twitter: 'artist-twitter', website: 'artist-website', genre: 'Rock')
     {
       data: {
         attributes: {
-          name: name
+          name: name,
+          facebook: facebook,
+          twitter: twitter,
+          website: website,
+          genre: genre
         }
       }
     }

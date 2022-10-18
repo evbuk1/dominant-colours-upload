@@ -25,7 +25,7 @@ module V1
         new_event.event_time = event_time
         new_event.event_type = event_type
         new_event.venue = Venue.find(venue_id)
-        new_event.orchestra = Orchestra.find(orchestra_id)
+        new_event.artist = Artist.find(artist_id)
 
         new_event.save!
 
@@ -41,12 +41,12 @@ module V1
                            .require(:attributes)
 
         venue = Venue.find(venue_id) if params[:data][:relationships].key?(:venue)
-        orchestra = Orchestra.find(orchestra_id) if params[:data][:relationships].key?(:orchestra)
+        artist = Artist.find(artist_id) if params[:data][:relationships].key?(:artist)
 
         event.event_time = attributes[:event_time].to_datetime if attributes.key?(:event_time)
         event.event_type = attributes[:event_type] if attributes.key?(:event_type)
         event.venue = venue if venue.present?
-        event.orchestra = orchestra if orchestra.present?
+        event.artist = artist if artist.present?
         event.save!
 
         render json: VenueSerializer.new(venue)
@@ -64,8 +64,8 @@ module V1
         params.require(:data).require(:relationships).require(:venue).require(:data).require(:id)
       end
 
-      def orchestra_id
-        params.require(:data).require(:relationships).require(:orchestra).require(:data).require(:id)
+      def artist_id
+        params.require(:data).require(:relationships).require(:artist).require(:data).require(:id)
       end
 
       def event_time
