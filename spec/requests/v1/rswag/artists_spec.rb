@@ -19,27 +19,7 @@ RSpec.describe 'Artists', type: :request do
       tags 'Artists'
       produces 'application/json'
       consumes 'application/json'
-      parameter name: :payload, in: :body, required: true, schema: {
-        type: :object,
-        properties: {
-          data: {
-            type: :object,
-            properties: {
-              attributes: {
-                type: :object,
-                required: %i[name],
-                properties: {
-                  name: { type: :string },
-                  twitter: { type: :string },
-                  facebook: { type: :string },
-                  website: { type: :string },
-                  genre: { type: :string }
-                }
-              }
-            }
-          }
-        }
-      }
+      parameter name: :payload, in: :body, required: true, schema: { '$ref' => '#/definitions/artist' }
       security [oauth2: []]
 
       response '201', 'Artist created' do

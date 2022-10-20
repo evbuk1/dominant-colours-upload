@@ -19,40 +19,7 @@ RSpec.describe 'Venues', type: :request do
       tags 'Venues'
       produces 'application/json'
       consumes 'application/json'
-      parameter name: :payload, in: :body, required: true, schema: {
-        type: :object,
-        properties: {
-          data: {
-            type: :object,
-            properties: {
-              attributes: {
-                type: :object,
-                required: %i[name],
-                properties: {
-                  name: { type: :string }
-                }
-              }
-            }
-          },
-          relationships: {
-            type: :object,
-            required: %i[location],
-            properties: {
-              location: {
-                type: :object,
-                properties: {
-                  data: {
-                    type: :object,
-                    properties: {
-                      id: { type: :string, format: :uuid }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      parameter name: :payload, in: :body, required: true, schema: { '$ref' => '#/definitions/venue' }
       security [oauth2: []]
 
       response '201', 'Venue created' do
@@ -114,39 +81,7 @@ RSpec.describe 'Venues', type: :request do
       produces 'application/json'
       consumes 'application/json'
       parameter name: :id, in: :path, type: :string, format: :uuid
-      parameter name: :payload, in: :body, required: true, schema: {
-        type: :object,
-        properties: {
-          data: {
-            type: :object,
-            properties: {
-              attributes: {
-                type: :object,
-                properties: {
-                  name: { type: :string }
-                }
-              }
-            }
-          },
-          relationships: {
-            type: :object,
-            required: %i[location],
-            properties: {
-              location: {
-                type: :object,
-                properties: {
-                  data: {
-                    type: :object,
-                    properties: {
-                      id: { type: :string, format: :uuid }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      parameter name: :payload, in: :body, required: true, schema: { '$ref' => '#/definitions/venue' }
       security [oauth2: []]
 
       let!(:venue_to_update) { create(:venue) }

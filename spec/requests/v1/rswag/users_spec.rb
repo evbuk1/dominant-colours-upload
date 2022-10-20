@@ -19,26 +19,7 @@ RSpec.describe 'Users', type: :request do
       tags 'Users'
       produces 'application/json'
       consumes 'application/json'
-      parameter name: :payload, in: :body, required: true, schema: {
-        type: :object,
-        properties: {
-          data: {
-            type: :object,
-            properties: {
-              attributes: {
-                type: :object,
-                required: %i[first_name last_name email password],
-                properties: {
-                  first_name: { type: :string },
-                  last_name: { type: :string },
-                  email: { type: :string },
-                  password: {type: :string }
-                }
-              }
-            }
-          }
-        }
-      }
+      parameter name: :payload, in: :body, required: true, schema: { '$ref' => '#/definitions/user' }
       security [oauth2: []]
 
       response '201', 'User created' do
@@ -101,25 +82,7 @@ RSpec.describe 'Users', type: :request do
       produces 'application/json'
       consumes 'application/json'
       parameter name: :id, in: :path, type: :string, format: :uuid
-      parameter name: :payload, in: :body, required: true, schema: {
-        type: :object,
-        properties: {
-          data: {
-            type: :object,
-            properties: {
-              attributes: {
-                type: :object,
-                properties: {
-                  first_name: { type: :string },
-                  last_name: { type: :string },
-                  email: { type: :string },
-                  password: {type: :string }
-                }
-              }
-            }
-          }
-        }
-      }
+      parameter name: :payload, in: :body, required: true, schema: { '$ref' => '#/definitions/user' }
       security [oauth2: []]
 
       let!(:user_to_update) { create(:user) }

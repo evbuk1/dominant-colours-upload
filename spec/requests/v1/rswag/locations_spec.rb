@@ -19,24 +19,7 @@ RSpec.describe 'Locations', type: :request do
       tags 'Locations'
       produces 'application/json'
       consumes 'application/json'
-      parameter name: :payload, in: :body, required: true, schema: {
-        type: :object,
-        properties: {
-          data: {
-            type: :object,
-            properties: {
-              attributes: {
-                type: :object,
-                required: %i[city state],
-                properties: {
-                  ward: { type: :string },
-                  borough: { type: :string }
-                }
-              }
-            }
-          }
-        }
-      }
+      parameter name: :payload, in: :body, required: true, schema: { '$ref' => '#/definitions/location' }
       security [oauth2: []]
 
       response '201', 'Location created' do
@@ -98,23 +81,7 @@ RSpec.describe 'Locations', type: :request do
       produces 'application/json'
       consumes 'application/json'
       parameter name: :id, in: :path, type: :string, format: :uuid
-      parameter name: :payload, in: :body, required: true, schema: {
-        type: :object,
-        properties: {
-          data: {
-            type: :object,
-            properties: {
-              attributes: {
-                type: :object,
-                properties: {
-                  ward: { type: :string },
-                  borough: { type: :string }
-                }
-              }
-            }
-          }
-        }
-      }
+      parameter name: :payload, in: :body, required: true, schema: { '$ref' => '#/definitions/location' }
       security [oauth2: []]
 
       let!(:location_to_update) { create(:location) }

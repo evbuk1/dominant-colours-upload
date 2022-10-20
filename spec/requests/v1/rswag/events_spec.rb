@@ -19,52 +19,7 @@ RSpec.describe 'Events', type: :request do
       tags 'Events'
       produces 'application/json'
       consumes 'application/json'
-      parameter name: :payload, in: :body, required: true, schema: {
-        type: :object,
-        properties: {
-          data: {
-            type: :object,
-            properties: {
-              attributes: {
-                type: :object,
-                required: %i[event_time event_type],
-                properties: {
-                  event_time: { type: :string },
-                  event_type: { type: :string }
-                }
-              }
-            }
-          },
-          relationships: {
-            type: :object,
-            required: %i[location],
-            properties: {
-              venue: {
-                type: :object,
-                properties: {
-                  data: {
-                    type: :object,
-                    properties: {
-                      id: { type: :string, format: :uuid }
-                    }
-                  }
-                }
-              },
-              artist: {
-                type: :object,
-                properties: {
-                  data: {
-                    type: :object,
-                    properties: {
-                      id: { type: :string, format: :uuid }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      parameter name: :payload, in: :body, required: true, schema: { '$ref' => '#/definitions/event' }
       security [oauth2: []]
 
       response '201', 'Event created' do
@@ -127,50 +82,7 @@ RSpec.describe 'Events', type: :request do
       produces 'application/json'
       consumes 'application/json'
       parameter name: :id, in: :path, type: :string, format: :uuid
-      parameter name: :payload, in: :body, required: true, schema: {
-        type: :object,
-        properties: {
-          data: {
-            type: :object,
-            properties: {
-              attributes: {
-                type: :object,
-                properties: {
-                  event_time: { type: :string },
-                  event_type: { type: :string }
-                }
-              }
-            }
-          },
-          relationships: {
-            type: :object,
-            properties: {
-              venue: {
-                type: :object,
-                properties: {
-                  data: {
-                    type: :object,
-                    properties: {
-                      id: { type: :string, format: :uuid }
-                    }
-                  }
-                }
-              },
-              artist: {
-                type: :object,
-                properties: {
-                  data: {
-                    type: :object,
-                    properties: {
-                      id: { type: :string, format: :uuid }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      parameter name: :payload, in: :body, required: true, schema: { '$ref' => '#/definitions/event' }
       security [oauth2: []]
 
       let!(:event_to_update) { create(:event) }

@@ -34,10 +34,149 @@ RSpec.configure do |config|
           # XXX Relative URLs aren't actually valid until OpenAPI 3.0
           tokenUrl: '/oauth/token'
         }
+      },
+      definitions: {
+        location: {
+          type: :object,
+          properties: {
+            data: {
+              type: :object,
+              properties: {
+                attributes: {
+                  type: :object,
+                  properties: {
+                    ward: { type: :string },
+                    borough: { type: :string }
+                  }
+                }
+              }
+            }
+          }
+        },
+        artist: {
+          type: :object,
+          properties: {
+            data: {
+              type: :object,
+              properties: {
+                attributes: {
+                  type: :object,
+                  required: %i[name],
+                  properties: {
+                    name: { type: :string },
+                    twitter: { type: :string },
+                    facebook: { type: :string },
+                    website: { type: :string },
+                    genre: { type: :string }
+                  }
+                }
+              }
+            }
+          }
+        },
+        event: {
+          type: :object,
+          properties: {
+            data: {
+              type: :object,
+              properties: {
+                attributes: {
+                  type: :object,
+                  required: %i[event_time event_type],
+                  properties: {
+                    event_time: { type: :string },
+                    event_type: { type: :string }
+                  }
+                }
+              }
+            },
+            relationships: {
+              type: :object,
+              required: %i[location],
+              properties: {
+                venue: {
+                  type: :object,
+                  properties: {
+                    data: {
+                      type: :object,
+                      properties: {
+                        id: { type: :string, format: :uuid }
+                      }
+                    }
+                  }
+                },
+                artist: {
+                  type: :object,
+                  properties: {
+                    data: {
+                      type: :object,
+                      properties: {
+                        id: { type: :string, format: :uuid }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        user: {
+          type: :object,
+          properties: {
+            data: {
+              type: :object,
+              properties: {
+                attributes: {
+                  type: :object,
+                  required: %i[first_name last_name email password],
+                  properties: {
+                    first_name: { type: :string },
+                    last_name: { type: :string },
+                    email: { type: :string },
+                    password: {type: :string }
+                  }
+                }
+              }
+            }
+          }
+        },
+        venue: {
+          type: :object,
+          properties: {
+            data: {
+              type: :object,
+              properties: {
+                attributes: {
+                  type: :object,
+                  required: %i[name],
+                  properties: {
+                    name: { type: :string }
+                  }
+                }
+              }
+            },
+            relationships: {
+              type: :object,
+              required: %i[location],
+              properties: {
+                location: {
+                  type: :object,
+                  properties: {
+                    data: {
+                      type: :object,
+                      properties: {
+                        id: { type: :string, format: :uuid }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
-
 end
 
 module Rswag

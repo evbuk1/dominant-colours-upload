@@ -12,6 +12,199 @@
       "tokenUrl": "/oauth/token"
     }
   },
+  "definitions": {
+    "location": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "attributes": {
+              "type": "object",
+              "properties": {
+                "ward": {
+                  "type": "string"
+                },
+                "borough": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "artist": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "attributes": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "twitter": {
+                  "type": "string"
+                },
+                "facebook": {
+                  "type": "string"
+                },
+                "website": {
+                  "type": "string"
+                },
+                "genre": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "attributes": {
+              "type": "object",
+              "required": [
+                "event_time",
+                "event_type"
+              ],
+              "properties": {
+                "event_time": {
+                  "type": "string"
+                },
+                "event_type": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "relationships": {
+          "type": "object",
+          "required": [
+            "location"
+          ],
+          "properties": {
+            "venue": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                }
+              }
+            },
+            "artist": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "attributes": {
+              "type": "object",
+              "required": [
+                "first_name",
+                "last_name",
+                "email",
+                "password"
+              ],
+              "properties": {
+                "first_name": {
+                  "type": "string"
+                },
+                "last_name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "venue": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "attributes": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "relationships": {
+          "type": "object",
+          "required": [
+            "location"
+          ],
+          "properties": {
+            "location": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "paths": {
     "/artists": {
       "post": {
@@ -31,37 +224,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "attributes": {
-                      "type": "object",
-                      "required": [
-                        "name"
-                      ],
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "twitter": {
-                          "type": "string"
-                        },
-                        "facebook": {
-                          "type": "string"
-                        },
-                        "website": {
-                          "type": "string"
-                        },
-                        "genre": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
+              "$ref": "#/definitions/artist"
             }
           }
         ],
@@ -348,65 +511,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "attributes": {
-                      "type": "object",
-                      "required": [
-                        "event_time",
-                        "event_type"
-                      ],
-                      "properties": {
-                        "event_time": {
-                          "type": "string"
-                        },
-                        "event_type": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                },
-                "relationships": {
-                  "type": "object",
-                  "required": [
-                    "location"
-                  ],
-                  "properties": {
-                    "venue": {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "format": "uuid"
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "artist": {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "format": "uuid"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
+              "$ref": "#/definitions/event"
             }
           }
         ],
@@ -600,58 +705,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "attributes": {
-                      "type": "object",
-                      "properties": {
-                        "event_time": {
-                          "type": "string"
-                        },
-                        "event_type": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                },
-                "relationships": {
-                  "type": "object",
-                  "properties": {
-                    "venue": {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "format": "uuid"
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "artist": {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "format": "uuid"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
+              "$ref": "#/definitions/event"
             }
           }
         ],
@@ -717,29 +771,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "attributes": {
-                      "type": "object",
-                      "required": [
-                        "city",
-                        "state"
-                      ],
-                      "properties": {
-                        "ward": {
-                          "type": "string"
-                        },
-                        "borough": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
+              "$ref": "#/definitions/location"
             }
           }
         ],
@@ -912,25 +944,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "attributes": {
-                      "type": "object",
-                      "properties": {
-                        "ward": {
-                          "type": "string"
-                        },
-                        "borough": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
+              "$ref": "#/definitions/location"
             }
           }
         ],
@@ -996,37 +1010,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "attributes": {
-                      "type": "object",
-                      "required": [
-                        "first_name",
-                        "last_name",
-                        "email",
-                        "password"
-                      ],
-                      "properties": {
-                        "first_name": {
-                          "type": "string"
-                        },
-                        "last_name": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        },
-                        "password": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
+              "$ref": "#/definitions/user"
             }
           }
         ],
@@ -1206,31 +1190,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "attributes": {
-                      "type": "object",
-                      "properties": {
-                        "first_name": {
-                          "type": "string"
-                        },
-                        "last_name": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        },
-                        "password": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
+              "$ref": "#/definitions/user"
             }
           }
         ],
@@ -1296,47 +1256,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "attributes": {
-                      "type": "object",
-                      "required": [
-                        "name"
-                      ],
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                },
-                "relationships": {
-                  "type": "object",
-                  "required": [
-                    "location"
-                  ],
-                  "properties": {
-                    "location": {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "format": "uuid"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
+              "$ref": "#/definitions/venue"
             }
           }
         ],
@@ -1502,44 +1422,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "attributes": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                },
-                "relationships": {
-                  "type": "object",
-                  "required": [
-                    "location"
-                  ],
-                  "properties": {
-                    "location": {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "format": "uuid"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
+              "$ref": "#/definitions/venue"
             }
           }
         ],
