@@ -1,40 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Songkick Demo API",
+    "title": "Dominant Colours Operation API",
     "version": "v1"
   },
   "basePath": "/v1",
-  "securityDefinitions": {
-    "oauth2": {
-      "type": "oauth2",
-      "flow": "password",
-      "tokenUrl": "/oauth/token"
-    }
-  },
   "definitions": {
-    "location": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "attributes": {
-              "type": "object",
-              "properties": {
-                "ward": {
-                  "type": "string"
-                },
-                "borough": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "artist": {
+    "image": {
       "type": "object",
       "properties": {
         "data": {
@@ -43,160 +15,26 @@
             "attributes": {
               "type": "object",
               "required": [
-                "name"
+                "image"
               ],
               "properties": {
-                "name": {
+                "elbow_plot": {
                   "type": "string"
                 },
-                "twitter": {
+                "image": {
                   "type": "string"
                 },
-                "facebook": {
+                "clustered_image": {
                   "type": "string"
                 },
-                "website": {
+                "rgb_colours": {
                   "type": "string"
                 },
-                "genre": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "event": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "attributes": {
-              "type": "object",
-              "required": [
-                "event_time",
-                "event_type"
-              ],
-              "properties": {
-                "event_time": {
+                "hex_colours": {
                   "type": "string"
                 },
-                "event_type": {
+                "num_clusters": {
                   "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "relationships": {
-          "type": "object",
-          "required": [
-            "location"
-          ],
-          "properties": {
-            "venue": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "format": "uuid"
-                    }
-                  }
-                }
-              }
-            },
-            "artist": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "format": "uuid"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "user": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "attributes": {
-              "type": "object",
-              "required": [
-                "first_name",
-                "last_name",
-                "email",
-                "password"
-              ],
-              "properties": {
-                "first_name": {
-                  "type": "string"
-                },
-                "last_name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "venue": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "attributes": {
-              "type": "object",
-              "required": [
-                "name"
-              ],
-              "properties": {
-                "name": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "relationships": {
-          "type": "object",
-          "required": [
-            "location"
-          ],
-          "properties": {
-            "location": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "format": "uuid"
-                    }
-                  }
                 }
               }
             }
@@ -206,11 +44,11 @@
     }
   },
   "paths": {
-    "/artists": {
+    "/images": {
       "post": {
-        "summary": "Add an artist",
+        "summary": "Upload an image",
         "tags": [
-          "Artists"
+          "Images"
         ],
         "produces": [
           "application/json"
@@ -224,27 +62,20 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/artist"
+              "$ref": "#/definitions/image"
             }
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
           }
         ],
         "responses": {
           "201": {
-            "description": "Artist created"
+            "description": "Image uploaded"
           }
         }
       },
       "get": {
-        "summary": "Listing artists",
+        "summary": "Listing images",
         "tags": [
-          "Artists"
+          "Images"
         ],
         "produces": [
           "application/json"
@@ -255,42 +86,70 @@
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "Comma-separated list of fields to sort by. Available fields: `name`, `genre`, `facebook`, `twitter`, `website`, `updated_at`, `created_at`. Prefix a field by `-` to reverse the sort order. For example `foo,-bar` sorts by `foo` in ascending order then by `bar` in descending order."
+            "description": "Comma-separated list of fields to sort by. Available fields: `elbow_plot`, `image`, `clustered_image`, `rgb_colours`, `hex_colours`, `num_clusters`, `updated_at`, `created_at`. Prefix a field by `-` to reverse the sort order. For example `foo,-bar` sorts by `foo` in ascending order then by `bar` in descending order."
           },
           {
-            "name": "filter[name][contains]",
+            "name": "filter[elbow_plot][contains]",
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "Causes the response to include only records whose `name` attribute contains the given value as a substring (case-insensitive)."
+            "description": "Causes the response to include only records whose `elbow_plot` attribute contains the given value as a substring (case-insensitive)."
           },
           {
-            "name": "filter[genre][contains]",
+            "name": "filter[image][contains]",
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "Causes the response to include only records whose `genre` attribute contains the given value as a substring (case-insensitive)."
+            "description": "Causes the response to include only records whose `image` attribute contains the given value as a substring (case-insensitive)."
           },
           {
-            "name": "filter[facebook][contains]",
+            "name": "filter[clustered_image][contains]",
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "Causes the response to include only records whose `facebook` attribute contains the given value as a substring (case-insensitive)."
+            "description": "Causes the response to include only records whose `clustered_image` attribute contains the given value as a substring (case-insensitive)."
           },
           {
-            "name": "filter[twitter][contains]",
+            "name": "filter[rgb_colours][contains]",
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "Causes the response to include only records whose `twitter` attribute contains the given value as a substring (case-insensitive)."
+            "description": "Causes the response to include only records whose `rgb_colours` attribute contains the given value as a substring (case-insensitive)."
           },
           {
-            "name": "filter[website][contains]",
+            "name": "filter[hex_colours][contains]",
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "Causes the response to include only records whose `website` attribute contains the given value as a substring (case-insensitive)."
+            "description": "Causes the response to include only records whose `hex_colours` attribute contains the given value as a substring (case-insensitive)."
+          },
+          {
+            "name": "filter[num_clusters][lt]",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Causes the response to include only records whose `num_clusters` attribute is strictly less than the given value."
+          },
+          {
+            "name": "filter[num_clusters][lte]",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Causes the response to include only records whose `num_clusters` attribute is less than or equal to the given value."
+          },
+          {
+            "name": "filter[num_clusters][gt]",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Causes the response to include only records whose `num_clusters` attribute is strictly greater than the given value."
+          },
+          {
+            "name": "filter[num_clusters][gte]",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Causes the response to include only records whose `num_clusters` attribute is greater than or equal to the given value."
           },
           {
             "name": "filter[created_at][lt]",
@@ -349,55 +208,41 @@
             "description": "Causes the response to include only records whose `updated_at` attribute is greater than or equal to the given value."
           }
         ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
         "responses": {
           "200": {
-            "description": "listing artists"
+            "description": "listing images"
           }
         }
       }
     },
-    "/artists/{id}": {
+    "/images/{id}": {
       "get": {
-        "summary": "Show artist",
+        "summary": "Show image",
         "tags": [
-          "Artists"
+          "Images"
         ],
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "type": "string",
             "format": "uuid",
             "required": true
           }
         ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
         "responses": {
           "200": {
-            "description": "show artist"
+            "description": "show image"
           }
         }
       },
       "patch": {
-        "summary": "Update artist",
+        "summary": "Update image",
         "tags": [
-          "Artists"
+          "Images"
         ],
         "produces": [
           "application/json"
@@ -407,7 +252,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "type": "string",
             "format": "uuid",
@@ -426,20 +271,23 @@
                     "attributes": {
                       "type": "object",
                       "properties": {
-                        "name": {
+                        "elbow_plot": {
                           "type": "string"
                         },
-                        "twitter": {
+                        "image": {
                           "type": "string"
                         },
-                        "facebook": {
+                        "clustered_image": {
                           "type": "string"
                         },
-                        "website": {
+                        "rgb_colours": {
                           "type": "string"
                         },
-                        "genre": {
+                        "hex_colours": {
                           "type": "string"
+                        },
+                        "num_clusters": {
+                          "type": "integer"
                         }
                       }
                     }
@@ -449,1023 +297,32 @@
             }
           }
         ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
         "responses": {
           "200": {
-            "description": "Artist updated"
+            "description": "Image updated"
           }
         }
       },
       "delete": {
-        "summary": "Remove artist",
+        "summary": "Remove image",
         "tags": [
-          "Artists"
+          "Images"
         ],
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "type": "string",
             "format": "uuid",
             "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
           }
         ],
         "responses": {
           "204": {
             "description": "Artist deleted"
-          }
-        }
-      }
-    },
-    "/events": {
-      "post": {
-        "summary": "Add an event",
-        "tags": [
-          "Events"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "payload",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/event"
-            }
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Event created"
-          }
-        }
-      },
-      "get": {
-        "summary": "Listing events",
-        "tags": [
-          "Events"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "sort",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Comma-separated list of fields to sort by. Available fields: `time`, `type`, `updated_at`, `created_at`. Prefix a field by `-` to reverse the sort order. For example `foo,-bar` sorts by `foo` in ascending order then by `bar` in descending order."
-          },
-          {
-            "name": "filter[time][lt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `time` attribute is strictly less than the given value."
-          },
-          {
-            "name": "filter[time][lte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `time` attribute is less than or equal to the given value."
-          },
-          {
-            "name": "filter[time][gt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `time` attribute is strictly greater than the given value."
-          },
-          {
-            "name": "filter[time][gte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `time` attribute is greater than or equal to the given value."
-          },
-          {
-            "name": "filter[type][contains]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `type` attribute contains the given value as a substring (case-insensitive)."
-          },
-          {
-            "name": "filter[created_at][lt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is strictly less than the given value."
-          },
-          {
-            "name": "filter[created_at][lte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is less than or equal to the given value."
-          },
-          {
-            "name": "filter[created_at][gt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is strictly greater than the given value."
-          },
-          {
-            "name": "filter[created_at][gte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is greater than or equal to the given value."
-          },
-          {
-            "name": "filter[updated_at][lt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is strictly less than the given value."
-          },
-          {
-            "name": "filter[updated_at][lte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is less than or equal to the given value."
-          },
-          {
-            "name": "filter[updated_at][gt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is strictly greater than the given value."
-          },
-          {
-            "name": "filter[updated_at][gte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is greater than or equal to the given value."
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "listing events"
-          }
-        }
-      }
-    },
-    "/events/{id}": {
-      "get": {
-        "summary": "Show event",
-        "tags": [
-          "Events"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "format": "uuid",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "show event"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update event",
-        "tags": [
-          "Events"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "format": "uuid",
-            "required": true
-          },
-          {
-            "name": "payload",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/event"
-            }
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Event updated"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Remove event",
-        "tags": [
-          "Events"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "format": "uuid",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Event deleted"
-          }
-        }
-      }
-    },
-    "/locations": {
-      "post": {
-        "summary": "Add a location",
-        "tags": [
-          "Locations"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "payload",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/location"
-            }
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Location created"
-          }
-        }
-      },
-      "get": {
-        "summary": "Listing locations",
-        "tags": [
-          "Locations"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "sort",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Comma-separated list of fields to sort by. Available fields: `city`, `state`, `updated_at`, `created_at`. Prefix a field by `-` to reverse the sort order. For example `foo,-bar` sorts by `foo` in ascending order then by `bar` in descending order."
-          },
-          {
-            "name": "filter[city][contains]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `city` attribute contains the given value as a substring (case-insensitive)."
-          },
-          {
-            "name": "filter[state][contains]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `state` attribute contains the given value as a substring (case-insensitive)."
-          },
-          {
-            "name": "filter[created_at][lt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is strictly less than the given value."
-          },
-          {
-            "name": "filter[created_at][lte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is less than or equal to the given value."
-          },
-          {
-            "name": "filter[created_at][gt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is strictly greater than the given value."
-          },
-          {
-            "name": "filter[created_at][gte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is greater than or equal to the given value."
-          },
-          {
-            "name": "filter[updated_at][lt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is strictly less than the given value."
-          },
-          {
-            "name": "filter[updated_at][lte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is less than or equal to the given value."
-          },
-          {
-            "name": "filter[updated_at][gt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is strictly greater than the given value."
-          },
-          {
-            "name": "filter[updated_at][gte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is greater than or equal to the given value."
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "listing locations"
-          }
-        }
-      }
-    },
-    "/locations/{id}": {
-      "get": {
-        "summary": "Show location",
-        "tags": [
-          "Locations"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "format": "uuid",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "show location"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update location",
-        "tags": [
-          "Locations"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "format": "uuid",
-            "required": true
-          },
-          {
-            "name": "payload",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/location"
-            }
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Location updated"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Remove location",
-        "tags": [
-          "Locations"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "format": "uuid",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Location deleted"
-          }
-        }
-      }
-    },
-    "/users": {
-      "post": {
-        "summary": "Add a user",
-        "tags": [
-          "Users"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "payload",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/user"
-            }
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "User created"
-          }
-        }
-      },
-      "get": {
-        "summary": "Listing users",
-        "tags": [
-          "Users"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "sort",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Comma-separated list of fields to sort by. Available fields: `first_name`, `last_name`, `email`, `updated_at`, `created_at`. Prefix a field by `-` to reverse the sort order. For example `foo,-bar` sorts by `foo` in ascending order then by `bar` in descending order."
-          },
-          {
-            "name": "filter[first_name][contains]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `first_name` attribute contains the given value as a substring (case-insensitive)."
-          },
-          {
-            "name": "filter[last_name][contains]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `last_name` attribute contains the given value as a substring (case-insensitive)."
-          },
-          {
-            "name": "filter[email][contains]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `email` attribute contains the given value as a substring (case-insensitive)."
-          },
-          {
-            "name": "filter[created_at][lt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is strictly less than the given value."
-          },
-          {
-            "name": "filter[created_at][lte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is less than or equal to the given value."
-          },
-          {
-            "name": "filter[created_at][gt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is strictly greater than the given value."
-          },
-          {
-            "name": "filter[created_at][gte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is greater than or equal to the given value."
-          },
-          {
-            "name": "filter[updated_at][lt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is strictly less than the given value."
-          },
-          {
-            "name": "filter[updated_at][lte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is less than or equal to the given value."
-          },
-          {
-            "name": "filter[updated_at][gt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is strictly greater than the given value."
-          },
-          {
-            "name": "filter[updated_at][gte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is greater than or equal to the given value."
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "listing users"
-          }
-        }
-      }
-    },
-    "/users/{id}": {
-      "get": {
-        "summary": "Show user",
-        "tags": [
-          "Users"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "format": "uuid",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "show user"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update user",
-        "tags": [
-          "Users"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "format": "uuid",
-            "required": true
-          },
-          {
-            "name": "payload",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/user"
-            }
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User updated"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Remove user",
-        "tags": [
-          "Users"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "format": "uuid",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "User deleted"
-          }
-        }
-      }
-    },
-    "/venues": {
-      "post": {
-        "summary": "Add a venue",
-        "tags": [
-          "Venues"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "payload",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/venue"
-            }
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Venue created"
-          }
-        }
-      },
-      "get": {
-        "summary": "Listing venues",
-        "tags": [
-          "Venues"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "sort",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Comma-separated list of fields to sort by. Available fields: `name`, `updated_at`, `created_at`. Prefix a field by `-` to reverse the sort order. For example `foo,-bar` sorts by `foo` in ascending order then by `bar` in descending order."
-          },
-          {
-            "name": "filter[name][contains]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `name` attribute contains the given value as a substring (case-insensitive)."
-          },
-          {
-            "name": "filter[created_at][lt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is strictly less than the given value."
-          },
-          {
-            "name": "filter[created_at][lte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is less than or equal to the given value."
-          },
-          {
-            "name": "filter[created_at][gt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is strictly greater than the given value."
-          },
-          {
-            "name": "filter[created_at][gte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `created_at` attribute is greater than or equal to the given value."
-          },
-          {
-            "name": "filter[updated_at][lt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is strictly less than the given value."
-          },
-          {
-            "name": "filter[updated_at][lte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is less than or equal to the given value."
-          },
-          {
-            "name": "filter[updated_at][gt]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is strictly greater than the given value."
-          },
-          {
-            "name": "filter[updated_at][gte]",
-            "in": "query",
-            "type": "string",
-            "required": false,
-            "description": "Causes the response to include only records whose `updated_at` attribute is greater than or equal to the given value."
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "listing venues"
-          }
-        }
-      }
-    },
-    "/venues/{id}": {
-      "get": {
-        "summary": "Show venue",
-        "tags": [
-          "Venues"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "format": "uuid",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "show venue"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update venue",
-        "tags": [
-          "Venues"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "format": "uuid",
-            "required": true
-          },
-          {
-            "name": "payload",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/venue"
-            }
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Venue updated"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Remove venue",
-        "tags": [
-          "Venues"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "format": "uuid",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "oauth2": [
-
-            ]
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Venue deleted"
           }
         }
       }

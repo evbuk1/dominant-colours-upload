@@ -5,22 +5,21 @@
 #   gem "sqlite3"
 #
 default: &default
-  adapter: postgresql
+  adapter: mysql2
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  username: evan
-  password: notnow123
+  username: root
+  password: Atherton!1234
   host: localhost
 
 development:
   <<: *default
-  encoding: UTF-8
-  database: db/songkick_development
+  database: dominant_colours
 
 test:
   <<: *default
-  database: db/songkick_test
+  database: dc_test
 
 production:
   <<: *default
-  database: db/songkick_production
+  database: dc_production

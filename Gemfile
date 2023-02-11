@@ -8,12 +8,11 @@ gem 'rails', '~> 7.0.4'
 
 gem 'doorkeeper', '~> 5.6'
 gem 'dotenv-rails'
-gem 'elasticsearch'
 gem 'factory_bot_rails'
 gem 'jsonapi-serializer'
 gem 'kaminari'
+gem 'mysql2', '~> 0.5'
 gem 'oauth2'
-gem 'pg'
 gem 'puma'
 gem 'pundit'
 gem 'rspec'
@@ -23,9 +22,9 @@ gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
 gem 'rubocop-rake', require: false
 gem 'rubocop-rspec', require: false
-gem 'shopify-money', require: 'money'
 gem 'sorcery'
 gem 'typhoeus'
+gem 'uuidtools'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem 'bcrypt', '~> 3.1.7'
@@ -35,7 +34,6 @@ gem 'tzinfo-data', platforms: %i[ mingw mswin x64_mingw jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
-
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
@@ -49,4 +47,3 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
-

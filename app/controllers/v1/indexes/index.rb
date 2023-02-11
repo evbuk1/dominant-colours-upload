@@ -31,17 +31,17 @@ module V1
       def filtered_unpaginated
         @filtered_unpaginated =
           @collection
-          .apply_filters(filter_params)
-          .order_by(sort_params)
+            .apply_filters(filter_params)
+            .order_by(sort_params)
       end
 
       def filtered
         @filtered =
           filtered_unpaginated
-          .page(@params.dig(:page, :number))
-          .per(page_size)
-          .includes(self.class.transform_includes(self.class::INCLUDES))
-          .includes(self.class::EXTRA_ACTIVE_RECORD_INCLUDES)
+            .page(@params.dig(:page, :number))
+            .per(page_size)
+            .includes(self.class.transform_includes(self.class::INCLUDES))
+            .includes(self.class::EXTRA_ACTIVE_RECORD_INCLUDES)
       end
 
       def self.transform_includes(includes)

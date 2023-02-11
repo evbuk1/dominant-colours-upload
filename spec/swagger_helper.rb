@@ -23,20 +23,12 @@ RSpec.configure do |config|
     'v1/swagger.json' => {
       swagger: '2.0',
       info: {
-        title: 'Songkick Demo API',
+        title: 'Dominant Colours Operation API',
         version: 'v1'
       },
       basePath: '/v1',
-      securityDefinitions: {
-        oauth2: {
-          type: :oauth2,
-          flow: 'password',
-          # XXX Relative URLs aren't actually valid until OpenAPI 3.0
-          tokenUrl: '/oauth/token'
-        }
-      },
       definitions: {
-        location: {
+        image: {
           type: :object,
           properties: {
             data: {
@@ -44,130 +36,14 @@ RSpec.configure do |config|
               properties: {
                 attributes: {
                   type: :object,
+                  required: %i[image],
                   properties: {
-                    ward: { type: :string },
-                    borough: { type: :string }
-                  }
-                }
-              }
-            }
-          }
-        },
-        artist: {
-          type: :object,
-          properties: {
-            data: {
-              type: :object,
-              properties: {
-                attributes: {
-                  type: :object,
-                  required: %i[name],
-                  properties: {
-                    name: { type: :string },
-                    twitter: { type: :string },
-                    facebook: { type: :string },
-                    website: { type: :string },
-                    genre: { type: :string }
-                  }
-                }
-              }
-            }
-          }
-        },
-        event: {
-          type: :object,
-          properties: {
-            data: {
-              type: :object,
-              properties: {
-                attributes: {
-                  type: :object,
-                  required: %i[event_time event_type],
-                  properties: {
-                    event_time: { type: :string },
-                    event_type: { type: :string }
-                  }
-                }
-              }
-            },
-            relationships: {
-              type: :object,
-              required: %i[location],
-              properties: {
-                venue: {
-                  type: :object,
-                  properties: {
-                    data: {
-                      type: :object,
-                      properties: {
-                        id: { type: :string, format: :uuid }
-                      }
-                    }
-                  }
-                },
-                artist: {
-                  type: :object,
-                  properties: {
-                    data: {
-                      type: :object,
-                      properties: {
-                        id: { type: :string, format: :uuid }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        user: {
-          type: :object,
-          properties: {
-            data: {
-              type: :object,
-              properties: {
-                attributes: {
-                  type: :object,
-                  required: %i[first_name last_name email password],
-                  properties: {
-                    first_name: { type: :string },
-                    last_name: { type: :string },
-                    email: { type: :string },
-                    password: {type: :string }
-                  }
-                }
-              }
-            }
-          }
-        },
-        venue: {
-          type: :object,
-          properties: {
-            data: {
-              type: :object,
-              properties: {
-                attributes: {
-                  type: :object,
-                  required: %i[name],
-                  properties: {
-                    name: { type: :string }
-                  }
-                }
-              }
-            },
-            relationships: {
-              type: :object,
-              required: %i[location],
-              properties: {
-                location: {
-                  type: :object,
-                  properties: {
-                    data: {
-                      type: :object,
-                      properties: {
-                        id: { type: :string, format: :uuid }
-                      }
-                    }
+                    elbow_plot: { type: :string },
+                    image: { type: :string },
+                    clustered_image: { type: :string },
+                    rgb_colours: { type: :string },
+                    hex_colours: { type: :string },
+                    num_clusters: { type: :string }
                   }
                 }
               }
@@ -193,14 +69,7 @@ module Rswag
       }.freeze
 
       def extra_opts(key)
-        case key
-        when :status_for_client
-          { enum: Invoice::CLIENT_STATUSES }
-        when :status_for_sa
-          { enum: Invoice::SA_STATUSES }
-        else
-          {}
-        end
+        { }
       end
 
       def document_filter_parameter(key, opts)
