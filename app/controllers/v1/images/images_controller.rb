@@ -21,12 +21,11 @@ module V1
       end
 
       def create
-        new_image = Image.new(image_params)
+        new_image = Image.new(image: 'test')
+        new_image.image_file.attach(params[:file]) if params[:file]
         new_image.save!
 
-        render json: ImageSerializer.new(
-          new_image
-        ), status: :created
+        head 200
       end
 
       def update

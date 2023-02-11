@@ -27,7 +27,7 @@ module SongkickElastic
     config.api_only = true
     config.autoload_paths << Rails.root.join('lib')
     config.generators do |generator|
-      generator.orm :active_record, primary_key_type: :uuid
+      generator.orm :active_record, primary_key_type: :integer
     end
     config.active_record.schema_format = :sql
     config.hosts << 'dev.evanbrown.co.uk'
