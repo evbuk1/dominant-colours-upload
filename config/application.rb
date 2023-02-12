@@ -30,7 +30,6 @@ module SongkickElastic
       generator.orm :active_record, primary_key_type: :integer
     end
     config.active_record.schema_format = :sql
-    config.hosts << 'dev.evanbrown.co.uk'
-    config.hosts << 'www.example.com'
+    config.hosts << 'sk-srv1.nortech-consulting.com'
   end
 end
