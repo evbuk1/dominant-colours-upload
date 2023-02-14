@@ -26,7 +26,11 @@ module V1
         new_image = Image.new(image: params[:file].original_filename)
         new_image.image_file.attach(params[:file])
         new_image.save!
-
+        File.open("#{Rails.root}/public/dominant_images/#{params[:file].original_filename}", 'w') { |file|
+          file.binmode
+          file.write(new_image.image_file.download)
+          file.rewind
+        }
         render json: ImageSerializer.new(new_image)
       end
 

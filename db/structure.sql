@@ -72,7 +72,7 @@ CREATE TABLE `images` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `elbow_plot` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `clustered_image` varchar(255) DEFAULT NULL,
+  `clustered_image` longtext DEFAULT NULL,
   `rgb_colours` varchar(255) DEFAULT NULL,
   `hex_colours` varchar(255) DEFAULT NULL,
   `num_clusters` int(11) DEFAULT NULL,
