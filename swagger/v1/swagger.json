@@ -226,10 +226,9 @@
         ],
         "parameters": [
           {
-            "name": "uuid",
+            "name": "id",
             "in": "path",
             "type": "string",
-            "format": "uuid",
             "required": true
           }
         ],
@@ -252,10 +251,9 @@
         ],
         "parameters": [
           {
-            "name": "uuid",
+            "name": "id",
             "in": "path",
             "type": "string",
-            "format": "uuid",
             "required": true
           },
           {
@@ -313,10 +311,9 @@
         ],
         "parameters": [
           {
-            "name": "uuid",
+            "name": "id",
             "in": "path",
             "type": "string",
-            "format": "uuid",
             "required": true
           }
         ],
