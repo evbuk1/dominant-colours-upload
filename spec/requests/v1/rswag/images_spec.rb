@@ -21,7 +21,7 @@ RSpec.describe 'Images', type: :request do
         before do
           allow_any_instance_of(V1::Images::ImagesController).to receive(:file_specified?).and_return(true)
           allow(File).to receive(:open).and_return(double('file', size: 0.5.megabytes, content_type: 'png',
-                                                                  original_filename: 'test.jpg'))
+                                                                  original_filename: 'test.png'))
         end
         context 'normal run' do
           let!(:image) { create(:image) }
