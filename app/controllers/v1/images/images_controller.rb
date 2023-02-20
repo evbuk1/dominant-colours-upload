@@ -21,7 +21,7 @@ module V1
       end
 
       def create
-        head 400 unless file_specified
+        head 400 unless file_specified?
 
         new_image = Image.new(image: params[:file]&.original_filename)
         new_image.image_file.attach(params[:file])
@@ -64,7 +64,7 @@ module V1
         params.require(:data).require(:attributes).permit(:elbow_plot, :image, :clustered_image, :rgb_colours, :hex_colours, :num_clusters)
       end
 
-      def file_specified
+      def file_specified?
         params[:file]
       end
     end
