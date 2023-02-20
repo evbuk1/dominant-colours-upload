@@ -31,5 +31,8 @@ module SongkickElastic
     end
     config.active_record.schema_format = :sql
     config.hosts << 'sk-srv1.nortech-consulting.com'
+    config.hosts << '127.0.0.1'
+    config.hosts << 'localhost'
+    config.hosts << 'www.example.com'
   end
 end

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :image, class: 'Image' do
-    sequence(:elbow_plot) { |n| "elbow-plot-path-#{n}" }
+    sequence(:colour_pie) { |n| "colour-pie-path-#{n}" }
     sequence(:image) { |n| "image-path-#{n}" }
     sequence(:clustered_image) { |n| "clustered-image-path-#{n}" }
     rgb_colours { "[100, 200, 300]" }

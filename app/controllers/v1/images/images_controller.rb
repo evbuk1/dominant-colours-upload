@@ -21,12 +21,12 @@ module V1
       end
 
       def create
-        head 400 unless params[:file]
+        head 400 unless file_specified
 
-        new_image = Image.new(image: params[:file].original_filename)
+        new_image = Image.new(image: params[:file]&.original_filename)
         new_image.image_file.attach(params[:file])
         new_image.save!
-        File.open("/var/www/html/sk-images/dominant_images/source_images/#{params[:file].original_filename}", 'w') { |file|
+        File.open("/var/www/html/sk-images/dominant_images/source_images/#{params[:file]&.original_filename}", 'w') { |file|
           file.binmode
           file.write(new_image.image_file.download)
           file.rewind
@@ -62,6 +62,10 @@ module V1
 
       def image_params
         params.require(:data).require(:attributes).permit(:elbow_plot, :image, :clustered_image, :rgb_colours, :hex_colours, :num_clusters)
+      end
+
+      def file_specified
+        params[:file]
       end
     end
   end

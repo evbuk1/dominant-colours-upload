@@ -4,7 +4,7 @@ class ImageSerializer
   include FastJsonapi::ObjectSerializer
 
   attributes :id,
-             :elbow_plot,
+             :colour_pie,
              :image,
              :clustered_image,
              :rgb_colours,

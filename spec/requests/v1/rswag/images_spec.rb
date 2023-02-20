@@ -17,7 +17,12 @@ RSpec.describe 'Images', type: :request do
       consumes 'application/json'
       parameter name: :payload, in: :body, required: true, schema: { '$ref' => '#/definitions/image' }
 
-      response '201', 'Image uploaded' do
+      response '200', 'Image uploaded' do
+        before do
+          allow_any_instance_of(V1::Images::ImagesController).to receive(:file_specified).and_return(true)
+          allow(File).to receive(:open).and_return(double('file', size: 0.5.megabytes, content_type: 'png',
+                                                                  original_filename: 'test.jpg'))
+        end
         context 'normal run' do
           let!(:image) { create(:image) }
 
@@ -84,7 +89,7 @@ RSpec.describe 'Images', type: :request do
               attributes: {
                 type: :object,
                 properties: {
-                  elbow_plot: { type: :string },
+                  colour_pie: { type: :string },
                   image: { type: :string },
                   clustered_image: { type: :string },
                   rgb_colours: { type: :string },
@@ -137,15 +142,16 @@ RSpec.describe 'Images', type: :request do
     end
   end
 
-  def valid_attributes(elbow_plot: 'path-to-elbow-plot', image: 'path-to-image', clustered_image: 'path-to-clustered-image', rgb_colours: '[333, 222, 111]', hex_colours: '[#FFFFFF, #000000, #F3C4D5]')
+  def valid_attributes(colour_pie: 'path-to-colour-pie', image: 'path-to-image', 
+clustered_image: 'path-to-clustered-image', rgb_colours: '[333, 222, 111]', hex_colours: '[#FFFFFF, #000000, #F3C4D5]')
     {
       data: {
         attributes: {
-          elbow_plot: elbow_plot,
-          image: image,
-          clustered_image: clustered_image,
-          rgb_colours: rgb_colours,
-          hex_colours: hex_colours,
+          colour_pie:,
+          image:,
+          clustered_image:,
+          rgb_colours:,
+          hex_colours:,
           num_clusters: 5
         }
       }

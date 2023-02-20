@@ -70,9 +70,9 @@ DROP TABLE IF EXISTS `images`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `images` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `elbow_plot` varchar(255) DEFAULT NULL,
+  `colour_pie` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `clustered_image` longtext DEFAULT NULL,
+  `clustered_image` text DEFAULT NULL,
   `rgb_colours` varchar(255) DEFAULT NULL,
   `hex_colours` varchar(255) DEFAULT NULL,
   `num_clusters` int(11) DEFAULT NULL,
