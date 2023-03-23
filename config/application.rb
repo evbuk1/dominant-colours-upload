@@ -34,5 +34,6 @@ module SongkickElastic
     config.hosts << '127.0.0.1'
     config.hosts << 'localhost'
     config.hosts << 'www.example.com'
+    config.hosts << 'gateway.nortech-consulting.com'
   end
 end
